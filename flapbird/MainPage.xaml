@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="flapbird.MainPage">
+             x:Class="flapbird.MainPage"
+             Shell.NavBarIsVisible="false">
 
     <AbsoluteLayout>
         <!-- Fundo do jogo -->
-        <BoxView Color="SkyBlue" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"/>  
-        
+        <Image Source="buracao.jpg" 
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+               Aspect="Fill"
+               AbsoluteLayout.LayoutFlags="All" />
+
         <!-- Pássaro -->
         <Image x:Name="Bird"
                Source="bozo.png"
@@ -17,22 +21,35 @@
         
         <!-- Cano superior -->
         <Image x:Name="TopPipe"
-               Source="nikee.png"
+               Source="chora.png"
                HeightRequest="300"
-               WidthRequest="130"
+               WidthRequest="790"
                AbsoluteLayout.LayoutBounds="1, 0, 600, 300"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
         
         <!-- Cano inferior -->
         <Image x:Name="BottomPipe"
-               Source="nikee.png"
+               Source="chora.png"
                HeightRequest="300"
-               WidthRequest="130"
-               Rotation="180"
+               WidthRequest="90"
+               Rotation="10"
                AbsoluteLayout.LayoutBounds="1, 1, 600, 300"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
         
-        <!-- Chão -->
-        <BoxView Color="Green" HeightRequest="30" AbsoluteLayout.LayoutBounds="0, 1, 1, 0.1" AbsoluteLayout.LayoutFlags="All" />
+        <!-- Chão usando Frame -->
+  <Frame BackgroundColor="#00E90606" 
+       HeightRequest="30" 
+       WidthRequest="1200"
+       AbsoluteLayout.LayoutBounds="0, 2, 1, 0.1" 
+       AbsoluteLayout.LayoutFlags="All"
+       HasShadow="False">
+</Frame>
+
+<Frame x:Name="FrameGameOver">
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnGameOverCliked"/>
+    </Frame.GestureRecognizers>
+</Frame>
     </AbsoluteLayout>
 </ContentPage>
+
