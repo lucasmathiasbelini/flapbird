@@ -6,7 +6,7 @@
 
     <AbsoluteLayout>
         <!-- Fundo do jogo -->
-        <Image Source="buracao.jpg" 
+        <Image Source="bolso.jpg" 
                AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                Aspect="Fill"
                AbsoluteLayout.LayoutFlags="All" />
@@ -15,25 +15,25 @@
         <Image x:Name="Bird"
                Source="bozo.png"
                WidthRequest="150"
-               HeightRequest="180"
+               HeightRequest="200"
                AbsoluteLayout.LayoutBounds="0.1, 0.5, 50, 50"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
         
         <!-- Cano superior -->
         <Image x:Name="TopPipe"
-               Source="chora.png"
-               HeightRequest="300"
+               Source="sla.png"
+               HeightRequest="390"
                WidthRequest="790"
-               AbsoluteLayout.LayoutBounds="1, 0, 600, 300"
+               AbsoluteLayout.LayoutBounds="1, 0, 600, 360"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
         
         <!-- Cano inferior -->
         <Image x:Name="BottomPipe"
-               Source="chora.png"
-               HeightRequest="300"
-               WidthRequest="90"
-               Rotation="10"
-               AbsoluteLayout.LayoutBounds="1, 1, 600, 300"
+               Source="ttt.png"
+               HeightRequest="390"
+               WidthRequest="790"
+               Rotation="4"
+               AbsoluteLayout.LayoutBounds="1, 1, 670, 360"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
         
         <!-- Chão usando Frame -->

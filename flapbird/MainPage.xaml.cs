@@ -2,6 +2,11 @@
 
 public partial class MainPage : ContentPage
 {
+	double larguraJanela = 0;
+	double alturaJanela = 0;
+	int velocidade = 20;
+
+
 	const int gravidade = 1;
 	const int tempoentreframes = 25;
 	bool estaMorto = false;
@@ -23,6 +28,7 @@ public partial class MainPage : ContentPage
 		{
 			AplicaGravidade();
 			await Task.Delay(tempoentreframes);
+			GerenciarCanos();
 		}
 	}
 	void OnGameOverCliked(object s,TappedEventArgs a){
@@ -33,5 +39,22 @@ public partial class MainPage : ContentPage
 	void Inicializar(){
 		Bird.TranslationY=0;
 	}
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+		larguraJanela = width;
+		alturaJanela = height;
+    }
+	void GerenciarCanos(){
+		TopPipe.TranslationX -= velocidade;
+		BottomPipe.TranslationX -= velocidade;
+		if(BottomPipe.TranslationX <- larguraJanela){
+			BottomPipe.TranslationX = 13;
+			TopPipe.TranslationX = 13;
+
+		}
+
+	}
+
 }
 
