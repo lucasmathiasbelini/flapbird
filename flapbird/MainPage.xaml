@@ -4,8 +4,15 @@
              x:Class="flapbird.MainPage"
              Shell.NavBarIsVisible="false">
     <AbsoluteLayout>
+
+       <Grid>
+              <Grid.GestureRecognizers>
+              <TapGestureRecognizer Tapped="OnGridCliked"/>
+              </Grid.GestureRecognizers>
+       
+     
         <!-- Fundo do jogo -->
-        <Image Source="bolso.jpg" 
+        <Image Source="buracao.jpg" 
                AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                Aspect="Fill"
                AbsoluteLayout.LayoutFlags="All" />
@@ -13,51 +20,59 @@
         <!-- Pássaro -->
         <Image x:Name="Bird"
                Source="bozo.png"
-               WidthRequest="50"
+               WidthRequest="70"
                HeightRequest="120"
                AbsoluteLayout.LayoutBounds="0.1, 0.5, 50, 50"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
 
         <!-- Cano superior -->
         <Image x:Name="TopPipe"
-               Source="sla.png"
+              BackgroundColor="AliceBlue"
+               Source="torre.webp"
                HeightRequest="310"
-               WidthRequest="600"
-               AbsoluteLayout.LayoutBounds="1, 0, 600, 310"
+               WidthRequest="130"
+               AbsoluteLayout.LayoutBounds="1, 1, 600, 310"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
 
         <!-- Cano inferior -->
         <Image x:Name="BottomPipe"
-               Source="ttt.png"
-               HeightRequest="290"
-               WidthRequest="670"
-               Rotation="4"
-               AbsoluteLayout.LayoutBounds="1, 1, 670, 170"
+              BackgroundColor="AliceBlue"
+               Source="torre.webp"
+               HeightRequest="310"
+               WidthRequest="130"
+               Rotation="1"
+               AbsoluteLayout.LayoutBounds="1, 1, 670, 270"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
 
         <!-- Chão usando Frame -->
         <Image x:Name="chao"
-               Source="ttt.png"
-                HeightRequest="30" 
+               Source="black.avif"
+                HeightRequest="290" 
                WidthRequest="1200"
                AbsoluteLayout.LayoutBounds="0, 1, 1, 0.1" 
                AbsoluteLayout.LayoutFlags="All"
                />
 
+              <Label Text="Canos"
+                     x:Name="labelScore"/>
+
+
         <!-- Grid de Game Over -->
-        <Grid x:Name="GameOverGrid"
-              IsVisible="False"  
+        <Frame x:Name="GameOverGrid"
+              IsVisible="true"  
               BackgroundColor="White"
-              AbsoluteLayout.LayoutBounds="0.5, 0.5, 300, 200" 
-              AbsoluteLayout.LayoutFlags="PositionProportional"
               HorizontalOptions="Center"
               VerticalOptions="Center">
+
+              <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGameOverClicked"/>
+                     </Frame.GestureRecognizers>
+
             <Label Text="Game Over"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="Ui"/>
-            </Grid.GestureRecognizers>
-        </Grid>
+           
+        </Frame>
+          </Grid>
     </AbsoluteLayout>
 </ContentPage>
