@@ -120,12 +120,36 @@ public partial class MainPage : ContentPage
 	}
 
 	bool VerificaColisaoChao(){
-	var maxY = alturaJanela / 2 - chao.HeightRequest;
+	var maxY = alturaJanela / 2 - Chao.HeightRequest;
 		if(Bird.TranslationY >= maxY)
 		    return true;
 		else
 		    return false;
 	}
+    bool VerificaColisaoCanoCima(){
+        var posHpassaro = (larguraJanela/2)-(Bird.WidthRequest/2);
+        var posVpassaro = (larguraJanela/2)-(Bird.HeightRequest /2)+ Bird.TranslationY;
+        if(posHpassaro >= Math.Abs(TopPipe.TranslationX)-Bird.WidthRequest && posHpassaro <= Math.Abs(Bird.TranslationX)+TopPipe.WidthRequest && posHpassaro <= TopPipe.HeightRequest + Bird.TranslationY){
+            return true;
+        }
+        else{
+            return false;
+        }
+        bool VerificaColisao(){
+            if(VerificaColisaoTeto() || VerificaColisaoChao() || VerificaColisaoCanoCima() || VerificaColisao())
+                return true;
+            else
+                return false;
+        }
+        void Inicializar(){
+            TopPipe.TranslationX = - larguraJanela;
+            BottomPipe.TranslationX = - larguraJanela;
+            Bird.TranslationX = 0;
+            Bird.TranslationY = 0;
+            score = 0;
+            GerenciarCanos();
+        }
+    }
 }
 
 
