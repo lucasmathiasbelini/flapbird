@@ -3,19 +3,20 @@
 public partial class MainPage : ContentPage
 {
     int score = 0;
-
     double larguraJanela = 0;
     double alturaJanela = 0;
-    int velocidade = 20;
-
+    const int velocidade = 20;
     const int gravidade = 1;
     const int tempoentreframes = 25;
     const int forcaPulo = 30;
     const int maxTempoPulando = 3;
-
+    const int AberturaMinima = 20;
     bool estaPulando = false;
-    bool estaMorto = true;
+    bool estaMorto = false;
     int TempoPulando = 0;
+    int pontuacao = 0;
+
+
 
     public MainPage()
     {
@@ -27,12 +28,13 @@ public partial class MainPage : ContentPage
         Bird.TranslationY += gravidade;
     }
 
-    async Task Desenha()
+    async Task  Desenha()
     {
         while (!estaMorto)
         {
+            AplicaGravidade();
             GerenciarCanos();
-            if(estaPulando)
+            if (estaPulando)
             {
                 AplicaPulo();
             }
@@ -41,11 +43,11 @@ public partial class MainPage : ContentPage
                 AplicaGravidade();
             }
             if (VerificaColisao())
-			{
-				estaMorto = true;
-				GameOverGrid.IsVisible = true;
-				break;
-			}
+            {
+                estaMorto = true;
+                GameOverGrid.IsVisible = true;
+                break;
+            }
             await Task.Delay(tempoentreframes);
         }
     }
@@ -54,13 +56,13 @@ public partial class MainPage : ContentPage
     {
         GameOverGrid.IsVisible = false;
         Inicializar();
-        Desenha(); 
+        Desenha();
     }
 
     void Inicializar()
     {
         Bird.TranslationY = 0;
-        estaMorto = false;  
+        estaMorto = false;
     }
 
     protected override void OnSizeAllocated(double width, double height)
@@ -70,7 +72,7 @@ public partial class MainPage : ContentPage
         alturaJanela = height;
     }
 
-    void GerenciarCanos()
+    void GerenciaCanos()
     {
         TopPipe.TranslationX -= velocidade;
         BottomPipe.TranslationX -= velocidade;
@@ -79,14 +81,27 @@ public partial class MainPage : ContentPage
         {
             BottomPipe.TranslationX = 12;
             TopPipe.TranslationX = 0;
-        }
+            var AlturaMax = -100;
+			var AlturaMin = - BottomPipe.HeightRequest;
+
+			TopPipe.TranslationY = Random.Shared.Next((int)AlturaMin, (int)AlturaMax);
+			BottomPipe.TranslationY = TopPipe.TranslationY + AberturaMinima + BottomPipe.HeightRequest;
+
+			pontuacao++;
+			AcabouScore.Text = "ACABO FI"
+			 +
+			 "     "
+			 +
+			  "Passou por :   " + pontuacao.ToString("D3") + "   Canos (Tu é TCHOLA)."; 
+		}
+        
     }
 
     void AplicaPulo()
     {
         Bird.TranslationY -= forcaPulo;
         TempoPulando++;
-        
+
         if (TempoPulando >= maxTempoPulando)
         {
             estaPulando = false;
@@ -96,14 +111,14 @@ public partial class MainPage : ContentPage
 
     void OnGridCliked(object s, TappedEventArgs args)
     {
-            estaPulando = true;
-        
+        estaPulando = true;
+
     }
     bool VerificaColisao()
     {
-        if(!estaMorto)
+        if (!estaMorto)
         {
-            if(VerificaColisaoTeto() || VerificaColisaoChao())
+            if (VerificaColisaoTeto() || VerificaColisaoChao() || VerificaColisaoCanoCima())
             {
                 return true;
             }
@@ -111,46 +126,40 @@ public partial class MainPage : ContentPage
         return false;
     }
 
-	bool VerificaColisaoTeto(){
-		var minY =- alturaJanela / 2;
-		if(Bird.TranslationY <= minY)
-		    return true;
-		else
-		    return false;
-	}
+    bool VerificaColisaoTeto()
+    {
+        var minY =- alturaJanela / 2;
+        if (Bird.TranslationY <= minY)
+            return true;
+        else
+            return false;
+    }
 
-	bool VerificaColisaoChao(){
-	var maxY = alturaJanela / 2 - Chao.HeightRequest;
-		if(Bird.TranslationY >= maxY)
-		    return true;
-		else
-		    return false;
-	}
-    bool VerificaColisaoCanoCima(){
-        var posHpassaro = (larguraJanela/2)-(Bird.WidthRequest/2);
-        var posVpassaro = (larguraJanela/2)-(Bird.HeightRequest /2)+ Bird.TranslationY;
-        if(posHpassaro >= Math.Abs(TopPipe.TranslationX)-Bird.WidthRequest && posHpassaro <= Math.Abs(Bird.TranslationX)+TopPipe.WidthRequest && posHpassaro <= TopPipe.HeightRequest + Bird.TranslationY){
+    bool VerificaColisaoChao()
+    {
+        var maxY = alturaJanela / 2 - Chao.HeightRequest;
+        if (Bird.TranslationY >= maxY)
+            return true;
+        else
+            return false;
+    }
+    bool VerificaColisaoCanoCima()
+    {
+        var posHpassaro = (larguraJanela / 2) - (Bird.WidthRequest / 2);
+        var posVpassaro = (larguraJanela / 2) - (Bird.HeightRequest / 2) + Bird.TranslationY;
+        if (posHpassaro >= Math.Abs(TopPipe.TranslationX) - Bird.WidthRequest && 
+        posHpassaro <= Math.Abs(Bird.TranslationX) + TopPipe.WidthRequest && 
+        posHpassaro <= TopPipe.HeightRequest + Bird.TranslationY)
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
-        bool VerificaColisao(){
-            if(VerificaColisaoTeto() || VerificaColisaoChao() || VerificaColisaoCanoCima() || VerificaColisao())
-                return true;
-            else
-                return false;
-        }
-        void Inicializar(){
-            TopPipe.TranslationX = - larguraJanela;
-            BottomPipe.TranslationX = - larguraJanela;
-            Bird.TranslationX = 0;
-            Bird.TranslationY = 0;
-            score = 0;
-            GerenciarCanos();
-        }
     }
-}
+    }
+
 
 
 
