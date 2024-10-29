@@ -2,77 +2,75 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="flapbird.MainPage"
-             Shell.NavBarIsVisible="false">
+             Shell.NavBarIsVisible="false"
+             Padding="0"
+             BackgroundColor="White">
+  <Grid Margin="0" Padding="0">
+    <Grid.GestureRecognizers>
+      <TapGestureRecognizer Tapped="OnGridCliked"/>
+    </Grid.GestureRecognizers>
+    
+    <!-- Fundo do jogo -->
+    <Image Source="oloco.jpg" 
+           HorizontalOptions="Fill"
+           VerticalOptions="Fill"
+           Aspect="Fill" />
 
-       <Grid>
-              <Grid.GestureRecognizers>
-              <TapGestureRecognizer Tapped="OnGridCliked"/>
-              </Grid.GestureRecognizers>
-       
-     
-       <!-- Fundo do jogo -->
-<Image Source="oloco.jpg" 
-       HorizontalOptions="Fill"
-       VerticalOptions="Fill"
-       Aspect="Fill" />
+    <!-- Pássaro -->
+    <Image x:Name="Bird"
+           Source="bozo.png"
+           WidthRequest="90"
+           HeightRequest="100" 
+           HorizontalOptions="Start"
+           VerticalOptions="Center" />
 
-<!-- Pássaro -->
-<Image x:Name="Bird"
-       Source="bozo.png"
-       WidthRequest="90"
-       HeightRequest="100" 
-       HorizontalOptions="Start"
-       VerticalOptions="Center" />
+    <!-- Cano superior -->
+    <Image x:Name="TopPipe"
+           Source="ttt.png"
+           HeightRequest="410"
+           Rotation="180"
+           WidthRequest="260"
+           HorizontalOptions="End"
+           VerticalOptions="Start" />
 
-<!-- Cano superior -->
-<Image x:Name="TopPipe"
-       Source="faca.png"
-       HeightRequest="210"
-       Rotation="180"
-       WidthRequest="130"
-       HorizontalOptions="End"
-       VerticalOptions="Start" />
+    <!-- Cano inferior -->
+    <Image x:Name="BottomPipe"
+           Source="ttt.png"
+           HeightRequest="410"
+           WidthRequest="260"
+           HorizontalOptions="End"
+           VerticalOptions="End" />
 
-<!-- Cano inferior -->
-<Image x:Name="BottomPipe"
-       Source="faca.png"
-       HeightRequest="298"
-       WidthRequest="110"
-       HorizontalOptions="End"
-       VerticalOptions="End" />
+    <!-- Chão -->
+    <Image x:Name="Chao"
+           Source="black.avif"
+           HeightRequest="100" 
+           WidthRequest="1900"
+           VerticalOptions="End" />
 
-<!-- Chão -->
-<Image x:Name="Chao"
-       Source="black.avif"
-       HeightRequest="100" 
-       WidthRequest="1900"
-       VerticalOptions="End" />
+    <Label x:Name="labelScore"
+           Text="Canos"
+           HorizontalOptions="Center"
+           VerticalOptions="Start" />
 
-<Label Text="Canos"
-       x:Name="labelScore"
-       HorizontalOptions="Center"
-       VerticalOptions="Start" />
+    <!-- Grid de Game Over -->
+    <Frame x:Name="GameOverGrid"
+           IsVisible="false"
+           BackgroundColor="White"
+           HorizontalOptions="Center"
+           VerticalOptions="Center">
 
-<!-- Grid de Game Over -->
-<Frame x:Name="GameOverGrid"
-       IsVisible="false"
-       BackgroundColor="White"
-       HorizontalOptions="Center"
-       VerticalOptions="Center">
+      <Frame.GestureRecognizers>
+          <TapGestureRecognizer Tapped="OnGameOverClicked"/>
+      </Frame.GestureRecognizers>
 
-    <Frame.GestureRecognizers>
-        <TapGestureRecognizer Tapped="OnGameOverClicked"/>
-    </Frame.GestureRecognizers>
-
-  <Label x:Name="AcabouScore"
-                            FontSize="60"
-                            TextColor="Black"
-                            BackgroundColor="Gray"
-                            FontFamily="RocksDeath"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"/>
-
-</Frame>
-
-          </Grid>
+      <Label x:Name="AcabouScore"
+             FontSize="60"
+             TextColor="Black"
+             BackgroundColor="Gray"
+             FontFamily="RocksDeath"
+             VerticalOptions="Center"
+             HorizontalOptions="Center"/>
+    </Frame>
+  </Grid>
 </ContentPage>

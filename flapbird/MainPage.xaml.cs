@@ -28,29 +28,31 @@ public partial class MainPage : ContentPage
         Bird.TranslationY += gravidade;
     }
 
-    async Task  Desenha()
+  private async Task Desenha()
+{
+    while (!estaMorto)
     {
-        while (!estaMorto)
+      
+        AplicaGravidade();
+
+        
+        if (estaPulando)
         {
-            AplicaGravidade();
-            GerenciarCanos();
-            if (estaPulando)
-            {
-                AplicaPulo();
-            }
-            else
-            {
-                AplicaGravidade();
-            }
-            if (VerificaColisao())
-            {
-                estaMorto = true;
-                GameOverGrid.IsVisible = true;
-                break;
-            }
-            await Task.Delay(tempoentreframes);
+            AplicaPulo();
         }
+
+        if (VerificaColisao())
+        {
+            estaMorto = true;
+            SoundHelper.Play("motorola.mp4");
+            GameOverGrid.IsVisible = true;
+            break;
+        }
+
+        await Task.Delay(tempoentreframes);
     }
+}
+
 
     void OnGameOverClicked(object s, TappedEventArgs a)
     {
@@ -90,7 +92,7 @@ public partial class MainPage : ContentPage
 			pontuacao++;
 			AcabouScore.Text = "ACABO FI"
 			 +
-			 "     "
+			 "eita"
 			 +
 			  "Passou por :   " + pontuacao.ToString("D3") + "   Canos (Tu é TCHOLA)."; 
 		}
