@@ -2,75 +2,85 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="flapbird.MainPage"
-             Shell.NavBarIsVisible="false"
-             Padding="0"
-             BackgroundColor="White">
-  <Grid Margin="0" Padding="0">
-    <Grid.GestureRecognizers>
-      <TapGestureRecognizer Tapped="OnGridCliked"/>
-    </Grid.GestureRecognizers>
-    
-    <!-- Fundo do jogo -->
-    <Image Source="oloco.jpg" 
-           HorizontalOptions="Fill"
-           VerticalOptions="Fill"
-           Aspect="Fill" />
+             Shell.NavBarIsVisible="false">
 
-    <!-- Pássaro -->
-    <Image x:Name="Bird"
-           Source="bozo.png"
-           WidthRequest="90"
-           HeightRequest="100" 
-           HorizontalOptions="Start"
-           VerticalOptions="Center" />
+       <Grid>
+              <Grid.GestureRecognizers>
+                     <TapGestureRecognizer Tapped="OnGridCliked"/>
+              </Grid.GestureRecognizers>
+              <!-- Imagem de fundo-->
+              <Image Source="oloco.jpg"
+                     Aspect="Fill"/>
+              <!-- Imagem do personagem-->
+              <Image Source="bozo.png"
+                     x:Name="Bird"
+                     HeightRequest="150"
+                     WidthRequest="150"
+                     HorizontalOptions="Center"/>
+              <!-- Imagem dos postes-->
+              <Image Source="ttt.png"
+                     x:Name="TopPipe"
+                     VerticalOptions="Start"
+                     HorizontalOptions="End"
+                     HeightRequest="920"
+                     WidthRequest="520"
+                     />
+              <!-- Imagem dos postes-->
+              <Image Source="ttt.png"
+                     x:Name="BottomPipe"
+                     VerticalOptions="End"
+                     HorizontalOptions="End"
+                     HeightRequest="920"
+                     WidthRequest="520"
+                     />
+              <!-- Imagem do chão-->
+              <Image Source="black.avif"
+                     x:Name="Chao"
+                     HeightRequest="100"
+                     VerticalOptions="End"
+                     HorizontalOptions="Fill"
+                     Aspect="Fill"/>
 
-    <!-- Cano superior -->
-    <Image x:Name="TopPipe"
-           Source="ttt.png"
-           HeightRequest="410"
-           Rotation="180"
-           WidthRequest="260"
-           HorizontalOptions="End"
-           VerticalOptions="Start" />
+              <Frame HorizontalOptions="End"
+                     VerticalOptions="Start"
+                     BorderColor="White"
+                     BackgroundColor="Transparent"
+                     Margin="20"
+                     HeightRequest="60"
+                     WidthRequest="180">
+                     <Label Text="Canos: 000"
+                            x:Name="labelPontuacao"
+                            TextColor="White"
+                            HorizontalTextAlignment="Start"/>
+              </Frame>
+              <!-- Frame de game over-->
+              <Frame IsVisible="true"
+                     x:Name="GameOverGrid"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill"
+                     BackgroundColor="Transparent">
+                     <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGameOverClicked"/>
+                     </Frame.GestureRecognizers>
+                     <VerticalStackLayout VerticalOptions="Center">
+                     <!-- Tela de game over-->
+                     <Image Source="gameover.png"
+                            WidthRequest="500"/>
 
-    <!-- Cano inferior -->
-    <Image x:Name="BottomPipe"
-           Source="ttt.png"
-           HeightRequest="410"
-           WidthRequest="260"
-           HorizontalOptions="End"
-           VerticalOptions="End" />
+                     <Label Text="Você pasou por 0 canos" 
+                            x:Name="labelGameOver"
+                            TextColor="White"
+                            HorizontalOptions="Center"
+                            Margin="10"/>
 
-    <!-- Chão -->
-    <Image x:Name="Chao"
-           Source="black.avif"
-           HeightRequest="100" 
-           WidthRequest="1900"
-           VerticalOptions="End" />
-
-    <Label x:Name="labelScore"
-           Text="Canos"
-           HorizontalOptions="Center"
-           VerticalOptions="Start" />
-
-    <!-- Grid de Game Over -->
-    <Frame x:Name="GameOverGrid"
-           IsVisible="false"
-           BackgroundColor="White"
-           HorizontalOptions="Center"
-           VerticalOptions="Center">
-
-      <Frame.GestureRecognizers>
-          <TapGestureRecognizer Tapped="OnGameOverClicked"/>
-      </Frame.GestureRecognizers>
-
-      <Label x:Name="AcabouScore"
-             FontSize="60"
-             TextColor="Black"
-             BackgroundColor="Gray"
-             FontFamily="RocksDeath"
-             VerticalOptions="Center"
-             HorizontalOptions="Center"/>
-    </Frame>
-  </Grid>
+                             <Label x:Name="AcabouScore"
+                               FontSize="60"
+                             TextColor="Black"
+                            BackgroundColor="Gray"
+                             FontFamily="RocksDeath"
+                            VerticalOptions="Center"
+                              HorizontalOptions="Center"/>
+                     </VerticalStackLayout>
+              </Frame>
+       </Grid>
 </ContentPage>

@@ -6,7 +6,7 @@ public partial class MainPage : ContentPage
     double larguraJanela = 0;
     double alturaJanela = 0;
     const int velocidade = 20;
-    const int gravidade = 1;
+    const int gravidade = 8;
     const int tempoentreframes = 25;
     const int forcaPulo = 30;
     const int maxTempoPulando = 3;
@@ -32,19 +32,20 @@ public partial class MainPage : ContentPage
 {
     while (!estaMorto)
     {
-      
-        AplicaGravidade();
-
-        
         if (estaPulando)
-        {
-            AplicaPulo();
-        }
+             AplicaPulo();
+        
+        else 
+             AplicaGravidade();
+
+        GerenciaCanos();
 
         if (VerificaColisao())
         {
             estaMorto = true;
+            GameOverGrid.IsVisible = true;
             SoundHelper.Play("motorola.mp4");
+            
             GameOverGrid.IsVisible = true;
             break;
         }
@@ -63,8 +64,13 @@ public partial class MainPage : ContentPage
 
     void Inicializar()
     {
-        Bird.TranslationY = 0;
         estaMorto = false;
+		Bird.TranslationY = 0;
+		Bird.TranslationX = 0;
+		BottomPipe.TranslationX = -larguraJanela;
+		TopPipe.TranslationX = -larguraJanela;
+		pontuacao = 0;
+		GerenciaCanos();
     }
 
     protected override void OnSizeAllocated(double width, double height)
@@ -81,20 +87,17 @@ public partial class MainPage : ContentPage
 
         if (BottomPipe.TranslationX < -larguraJanela)
         {
-            BottomPipe.TranslationX = 12;
-            TopPipe.TranslationX = 0;
-            var AlturaMax = -100;
+            BottomPipe.TranslationX = 20;
+            TopPipe.TranslationX = 20;
+            var AlturaMax = -50;
 			var AlturaMin = - BottomPipe.HeightRequest;
 
 			TopPipe.TranslationY = Random.Shared.Next((int)AlturaMin, (int)AlturaMax);
 			BottomPipe.TranslationY = TopPipe.TranslationY + AberturaMinima + BottomPipe.HeightRequest;
 
 			pontuacao++;
-			AcabouScore.Text = "ACABO FI"
-			 +
-			 "eita"
-			 +
-			  "Passou por :   " + pontuacao.ToString("D3") + "   Canos (Tu é TCHOLA)."; 
+            SoundHelper.Play("");
+			AcabouScore.Text = "ACABO FI" + "eita" + "Passou por : " + pontuacao.ToString("D3") + "   Canos (KKKKKKKKKKKKKK MUITO RUIM)."; 
 		}
         
     }
