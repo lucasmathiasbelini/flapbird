@@ -8,8 +8,9 @@
               <Grid.GestureRecognizers>
                      <TapGestureRecognizer Tapped="OnGridCliked"/>
               </Grid.GestureRecognizers>
+
               <!-- Imagem de fundo-->
-              <Image Source="oloco.jpg"
+              <Image Source="buracao.jpg"
                      Aspect="Fill"/>
               <!-- Imagem do personagem-->
               <Image Source="bozo.png"
@@ -64,8 +65,8 @@
                      </Frame.GestureRecognizers>
                      <VerticalStackLayout VerticalOptions="Center">
                      <!-- Tela de game over-->
-                     <Image Source="gameover.png"
-                            WidthRequest="500"/>
+                     <Image Source="eete.png"
+                            WidthRequest="190"/>
 
                      <Label Text="Você pasou por 0 canos" 
                             x:Name="labelGameOver"

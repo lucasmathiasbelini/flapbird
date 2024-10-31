@@ -26,6 +26,7 @@ public partial class MainPage : ContentPage
     void AplicaGravidade()
     {
         Bird.TranslationY += gravidade;
+        
     }
 
   private async Task Desenha()
@@ -34,7 +35,6 @@ public partial class MainPage : ContentPage
     {
         if (estaPulando)
              AplicaPulo();
-        
         else 
              AplicaGravidade();
 
@@ -44,10 +44,9 @@ public partial class MainPage : ContentPage
         {
             estaMorto = true;
             GameOverGrid.IsVisible = true;
-            SoundHelper.Play("motorola.mp4");
-            
+            SoundHelper.Play("zorao.mp4");
             GameOverGrid.IsVisible = true;
-            break;
+              break;
         }
 
         await Task.Delay(tempoentreframes);
@@ -96,8 +95,7 @@ public partial class MainPage : ContentPage
 			BottomPipe.TranslationY = TopPipe.TranslationY + AberturaMinima + BottomPipe.HeightRequest;
 
 			pontuacao++;
-            SoundHelper.Play("");
-			AcabouScore.Text = "ACABO FI" + "eita" + "Passou por : " + pontuacao.ToString("D3") + "   Canos (KKKKKKKKKKKKKK MUITO RUIM)."; 
+			AcabouScore.Text = "Acabo fi " + "BOLSOJORDAN " + "Passou por : " + pontuacao.ToString("D3") + " Ribamar (KKKKKKKKKKKKKK MUITO RUIM)."; 
 		}
         
     }
@@ -112,6 +110,7 @@ public partial class MainPage : ContentPage
             estaPulando = false;
             TempoPulando = 0;
         }
+        SoundHelper.Play("gnomo.mp4");
     }
 
     void OnGridCliked(object s, TappedEventArgs args)
@@ -163,7 +162,24 @@ public partial class MainPage : ContentPage
             return false;
         }
     }
+        bool VerificaColisaoCanoBaixo()
+	{
+		var posHPomba = (larguraJanela / 2) - (Bird.WidthRequest / 2);
+		var posVPomba = (alturaJanela / 2) - (Bird.HeightRequest / 2) + Bird.TranslationY;
+		var yMaxCano = TopPipe.HeightRequest + TopPipe.TranslationY + AberturaMinima;
+		if (posHPomba >= Math.Abs(BottomPipe.TranslationX) - BottomPipe.WidthRequest &&
+		 posHPomba <= Math.Abs(BottomPipe.TranslationX) + BottomPipe.WidthRequest &&
+		 posVPomba >= yMaxCano)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
     }
+    }
+    
 
 
 
